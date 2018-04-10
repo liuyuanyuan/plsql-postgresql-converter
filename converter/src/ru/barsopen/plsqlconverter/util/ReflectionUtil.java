@@ -2,11 +2,19 @@ package ru.barsopen.plsqlconverter.util;
 
 import java.lang.reflect.Method;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import ru.barsopen.plsqlconverter.Main;
+
 public class ReflectionUtil {
+	private static Logger logger = LoggerFactory.getLogger(Main.class);
 	
 	public static Object callMethod(Object obj, String methodName) {
+		logger.debug("Enter: obj=" + obj +", methodName=" + methodName);
 		try {
 			Object result = obj.getClass().getMethod(methodName).invoke(obj);
+			logger.debug("Return: " + result.toString());
 			return result;
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);

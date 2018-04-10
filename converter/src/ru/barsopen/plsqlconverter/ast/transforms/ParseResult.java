@@ -9,6 +9,6 @@ import org.antlr.runtime.tree.Tree;
 public class ParseResult {
 	public List<RecognitionException> lexerErrors;
 	public List<RecognitionException> parserErrors;
-	public List<Token> tokens;
-	public Tree tree;
+	public List<Token> tokens;//一个语句中的各个单词或字符以及排列布局
+	public Tree tree;//
 }

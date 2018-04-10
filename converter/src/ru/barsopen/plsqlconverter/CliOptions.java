@@ -2,7 +2,14 @@ package ru.barsopen.plsqlconverter;
 
 import java.io.PrintStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+/*
+ * 初步分解输入的命令和参数
+ */
 public class CliOptions {
+	private final static Logger logger = LoggerFactory.getLogger(Main.class);
+	
 	public boolean debug;
 	public boolean help;
 	public boolean allPackages;
@@ -22,6 +29,7 @@ public class CliOptions {
 	public boolean convert;
 	
 	public String tree_type = "sql_script";
+
 	
 	public static void printUsage(PrintStream out) {
 		out.println("Usage: plsqconverter [options]");
@@ -51,10 +59,12 @@ public class CliOptions {
 	}
 
 	public static CliOptions parseCliOptions(String[] args) {
+		logger.debug("Enter:" + Main.arrayToString(args));
 		CliOptions result = new CliOptions();
 		int i = 0;
 		while (i < args.length) {
 			String arg = args[i];
+			logger.debug("arg=" + arg);
 			++i;
 			switch (arg) {
 			case "--help": result.help = true; break;
