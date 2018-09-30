@@ -1,0 +1,132 @@
+Ref：
+入门教程
+https://github.com/antlr/antlr4/blob/master/doc/getting-started.md
+https://stackoverflow.com/questions/21637991/how-to-use-plsql-parser-antlr
+ANTLR4权威指南
+https://yuedu.baidu.com/ebook/a9519b720a4c2e3f5727a5e9856a561252d321c3?pn=1&click_type=10010002
+
+
+
+------
+Getting Start
+------
+downaload jdk and antlr-4.7.1-complete.jar
+export CLASSPATH = ".:E:\Javalib\antlr-4.7.1-complete.jar:$CLASSPATH"
+
+alias antlr4 = 'java -jar E:\Javalib\antlr-4.7.1-complete.jar' 
+            or directly 'java org.antlr.v4.Tool'
+alias grun = 'java org.antlr.v4.gui.TestRig'
+
+
+C:\Users\highgoer>java org.antlr.v4.Tool
+ANTLR Parser Generator  Version 4.7.1
+ -o ___              specify output directory where all output is generated
+ -lib ___            specify location of grammars, tokens files
+ -atn                generate rule augmented transition network diagrams
+ -encoding ___       specify grammar file encoding; e.g., euc-jp
+ -message-format ___ specify output style for messages in antlr, gnu, vs2005
+ -long-messages      show exception details when available for errors and warnings
+ -listener           generate parse tree listener (default)
+ -no-listener        don't generate parse tree listener
+ -visitor            generate parse tree visitor
+ -no-visitor         don't generate parse tree visitor (default)
+ -package ___        specify a package/namespace for the generated code
+ -depend             generate file dependencies
+ -D<option>=value    set/override a grammar-level option
+ -Werror             treat warnings as errors
+ -XdbgST             launch StringTemplate visualizer on generated code
+ -XdbgSTWait         wait for STViz to close before continuing
+ -Xforce-atn         use the ATN simulator for all predictions
+ -Xlog               dump lots of logging info to antlr-timestamp.log
+ -Xexact-output-dir  all output goes into -o dir regardless of paths/package
+
+C:\Users\highgoer>java org.antlr.v4.gui.TestRig
+java org.antlr.v4.gui.TestRig GrammarName startRuleName
+  [-tokens] [-tree] [-gui] [-ps file.ps] [-encoding encodingname]
+  [-trace] [-diagnostics] [-SLL]
+  [input-filename(s)]
+Use startRuleName='tokens' if GrammarName is a lexer grammar.
+Omitting input-filename makes rig read from stdin.
+
+
+==Hello test==
+C:\Users\highgoer\Desktop\Antlr>cd Hello
+创建Hello.g4文件，编辑内容如下：
+// Define a grammar called Hello
+grammar Hello;
+r  : 'hello' ID ;         // match keyword hello followed by an identifier
+ID : [a-z]+ ;             // match lower-case identifiers
+WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
+
+C:\Users\highgoer\Desktop\Antlr>java org.antlr.v4.Tool Hello.g4
+
+C:\Users\highgoer\Desktop\Antlr\Hello>javac Hello*.java
+
+
+[grun Hello r -tree]
+(That ^D means EOF on unix; it's ^Z in Windows.) The -tree option prints the parse tree in LISP notation.
+It's nicer to look at parse trees visually.
+
+C:\Users\highgoer\Desktop\Antlr\Hello>java org.antlr.v4.gui.TestRig Hello r -tree
+hello parrt
+^Z
+(r hello parrt)
+
+
+[grun Hello r -gui]
+会打开一个图形化界面,生成解析图片
+C:\Users\highgoer\Desktop\Antlr\Hello>java org.antlr.v4.gui.TestRig Hello r -gui
+hello parrt
+^Z
+
+
+==CSV test==
+highgoer@DESKTOP-1QJVH6I MINGW64 /f/Antlr/csv
+$ java org.antlr.v4.Tool CSV.g4
+
+highgoer@DESKTOP-1QJVH6I MINGW64 /f/Antlr/csv
+$ javac CSV*.java
+highgoer@DESKTOP-1QJVH6I MINGW64 /f/Antlr/csv
+$ java org.antlr.v4.gui.TestRig CSV file data.csv
+
+highgoer@DESKTOP-1QJVH6I MINGW64 /f/Antlr/csv
+$ java org.antlr.v4.gui.TestRig CSV file -tokens data.csv
+[@0,0:6='Details',<TEXT>,1:0]
+[@1,7:7=',',<','>,1:7]
+[@2,8:12='Month',<TEXT>,1:8]
+[@3,13:13=',',<','>,1:13]
+[@4,14:19='Amount',<TEXT>,1:14]
+[@5,20:20='\n',<'
+'>,1:20]
+[@6,21:29='Mid Bonus',<TEXT>,2:0]
+[@7,30:30=',',<','>,2:9]
+[@8,31:34='June',<TEXT>,2:10]
+[@9,35:35=',',<','>,2:14]
+[@10,36:43='"$2,000"',<STRING>,2:15]
+[@11,44:44='\n',<'
+'>,2:23]
+[@12,45:45=',',<','>,3:0]
+[@13,46:52='January',<TEXT>,3:1]
+[@14,53:53=',',<','>,3:8]
+[@15,54:64='"""zippo"""',<STRING>,3:9]
+[@16,65:65='\n',<'
+'>,3:20]
+[@17,66:78='Total Bonuses',<TEXT>,4:0]
+[@18,79:79=',',<','>,4:13]
+[@19,80:81='""',<STRING>,4:14]
+[@20,82:82=',',<','>,4:16]
+[@21,83:90='"$5,000"',<STRING>,4:17]
+[@22,91:91='\n',<'
+'>,4:25]
+[@23,92:91='<EOF>',<EOF>,5:0]
+
+highgoer@DESKTOP-1QJVH6I MINGW64 /f/Antlr/csv
+$ java org.antlr.v4.gui.TestRig CSV file -tree data.csv
+(file (hdr (row (field Details) , (field Month) , (field Amount) \n)) (row (field Mid Bonus) , (field June) , (field "$2,000") \n) (row field , (field January) , (field """zippo""") \n) (row (field Total Bonuses) , (field "") , (field "$5,000") \n))
+
+highgoer@DESKTOP-1QJVH6I MINGW64 /f/Antlr/csv
+$ java org.antlr.v4.gui.TestRig CSV file -gui data.csv
+
+
+
+
