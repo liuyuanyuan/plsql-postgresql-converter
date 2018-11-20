@@ -260,6 +260,14 @@ public class Main
 		{
 			node.setComments(new AttachedComments());
 		}
+		
+		String cmt = c.getText();
+		logger.debug("cmt=" + cmt);
+		if (cmt != null) 
+		{
+			c.setText("/*" + (cmt.replace("/*", " ")).replace("*/", " ") + " */");//compatibility for PG comment
+		}
+		
 		boolean isBefore = c.getLine() < node._getLine()
 				|| (c.getLine() == node._getLine() && c.getCharPositionInLine() < node._getCol());
 		if (isBefore)
