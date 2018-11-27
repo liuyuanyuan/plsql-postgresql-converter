@@ -1,6 +1,7 @@
-just execute：
+1 just execute：
   mvn package
-then return:
+    
+2 then return:
 ......
 [INFO] No tests to run.
 [INFO]
@@ -19,5 +20,6 @@ then return:
 [INFO] Final Memory: 22M/363M
 [INFO] ------------------------------------------------------------------------
 
-
+3 then you can get jar
+ F:\Antlr\plsql-postgresql-converter-master\plsql-parser\lexer-parser-walker\target\lexer-parser-walker-1.0-SNAPSHOT.jar
 
