@@ -20,6 +20,10 @@
 [INFO] Final Memory: 22M/363M
 [INFO] ------------------------------------------------------------------------
 
-3 then you can get jar
+then you can get jar under：
  F:\Antlr\plsql-postgresql-converter-master\plsql-parser\lexer-parser-walker\target\lexer-parser-walker-1.0-SNAPSHOT.jar
+
+and java files under:
+F:\Antlr\plsql-postgresql-converter-master\plsql-parser\lexer-parser-walker\target\generated-sources\antlr3\br\com\porcelli\parser\plsql
+
 
